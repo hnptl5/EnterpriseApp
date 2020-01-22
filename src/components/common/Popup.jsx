@@ -7,7 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CustomizedButtons from './Button';
 
-export default function AlertDialog({openAlert}) {
+export default function AlertDialog({ openAlert }) {
   const [open, setOpen] = React.useState(openAlert);
 
   const handleClose = () => {

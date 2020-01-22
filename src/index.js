@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 import HomePage from './pages/HomePage';
@@ -42,11 +42,11 @@ const IndexApp = () => {
                 <Router>
                     <MainHeader />
                     <Switch>
-                        <Route path="/" exact component={HomePage} />
                         <Route path="/main" exact component={MainPage} />
                         <Route path='/home' exact component={HomePage} />
                         <Route path='/signup' exact component={Signup} />
                         <Route path='/tabs' exact component={IconLabelTabs} />
+                        <Redirect to='/home' exact />
                     </Switch>
                     <Footer />
                 </Router>

@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import CustomizedButtons from "../components/common/Button";
 import AlertDialog from '../components/common/Popup';
+import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -64,13 +65,34 @@ const Signup = () => {
   const [leaderEmail, setLeaderEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [businessLine, setBusinessLine] = useState('');
-
+  const [userAccessRole, setUserAccessRole] = useState('');
   const [openAlertDialog, setOpenAlertDialog] = useState(false);
 
 
   const onSubmitForm = (e) => {
     e.preventDefault();
-    setOpenAlertDialog(true);
+    const url = 'http://localhost:8080/useraccess/v1/send';
+    const registrationData = {
+      userId: userName,
+      password: password,
+      firstName: firstname,
+      lastName: lastname,
+      businessLine: businessLine,
+      technologyTeamName: techTeam,
+      emailId: email,
+      groupEmailId: groupMailId,
+      leaderName: leaderName,
+      leaderEmailId: leaderEmail,
+      phoneNumber: phoneNumber,
+      userAccessRole: userAccessRole
+    }
+    axios.post(url, registrationData).then((res) => {
+      console.log('request has been submitted successfully');
+      setOpenAlertDialog(true);
+    }).catch((e) => {
+      console.log('Something gone wrong');
+    })
+
   };
 
   const handleReset = (e) => {
@@ -85,12 +107,14 @@ const Signup = () => {
     setLeaderName('');
     setLeaderEmail('');
     setPhoneNumber('');
+    setUserAccessRole('');
     setBusinessLine('');
+
   }
   return (
     <Wrapper>
-      { openAlertDialog && <AlertDialog openAlert={openAlertDialog} />}
-      <Form>
+      {openAlertDialog && <AlertDialog openAlert={openAlertDialog} />}
+      <Form autoComplete="off" onSubmit={onSubmitForm}>
 
         <div className="row rowPadding">
           <div className="col-md-2"></div>
@@ -263,16 +287,27 @@ const Signup = () => {
             </Form.Group>
           </div>
           <div className="col-md-4">
-
+            <Form.Group controlId="business_user">
+              <TextField
+                id="outlined-email"
+                label="User Access Role"
+                type="text"
+                value={userAccessRole}
+                variant="outlined"
+                required
+                onChange={(e) => { setUserAccessRole(e.target.value) }}
+              >
+              </TextField>
+            </Form.Group>
           </div>
           <div className="col-md-2"></div>
         </div>
         <div className="buttonSpace">
           <CustomizedButtons OnClick={(e) => handleReset(e)} value="Reset" />
-          <CustomizedButtons  type="submit" OnClick={(e) => onSubmitForm(e)} value="Register" />
+          <CustomizedButtons type="submit" OnClick={(e) => { }} value="Register" />
         </div>
       </Form>
     </Wrapper>
   );
-};
+}
 export default Signup;

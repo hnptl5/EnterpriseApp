@@ -100,25 +100,25 @@ const MainHeader = () => {
         <p>COMMUNICATIONS</p>
         <p>PLATFORM</p>
       </div>
-      {(path === '/signup' || path === '/tabs' || path === '/main' || path === '/') && 
-      <div>
-        <div className={classes.root}>
+      {(path === '/signup' || path === '/tabs' || path === '/main') &&
+        <div>
+          <div className={classes.root}>
 
-          <StyledBadge
-            overlap="circle"
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "right"
-            }}
-            variant="dot"
-          >
-            <Avatar alt="Remy Sharp" src={avatar} className={classes.large} />
-          </StyledBadge>
-          <span className="logged-in-user">Hani</span>
-        </div>
-      </div>}
+            <StyledBadge
+              overlap="circle"
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "right"
+              }}
+              variant="dot"
+            >
+              <Avatar alt="Remy Sharp" src={avatar} className={classes.large} />
+            </StyledBadge>
+            <span className="logged-in-user">Hani</span>
+          </div>
+        </div>}
       {
-        path === '/home' && <DropDownSelect options={languageOption} />
+        (path === '/home' || path === '/') && <DropDownSelect options={languageOption} />
       }
     </Wrapper>
   );
